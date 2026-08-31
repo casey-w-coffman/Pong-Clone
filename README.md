@@ -10,6 +10,8 @@ Right paddle: up/down arrows
 
 Press space to start
 
+First to 11 points wins
+
 **Highlights**
 
 Custom ball bounce based on where it collides with the player paddle
