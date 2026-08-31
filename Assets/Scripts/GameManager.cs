@@ -3,16 +3,20 @@ using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
+    //instance the script
     public static GameManager Instance;
 
+    //enumerate GameState options and define currentState at awake()
     public enum GameState { WaitingToStart, Playing, GameOver }
     public GameState currentState = GameState.WaitingToStart;
 
+    //set left/right score and time to zero, winning score to 11
     public int leftScore = 0;
     public int rightScore = 0;
     public int winningScore = 11;
     public int time = 0;
 
+    //allows drag/drop text in inspector window for variable
     public GameObject PressSpaceText;
     public GameObject GameOverText;
 
@@ -21,6 +25,7 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
+    //start game if gamestate is waiting to start and space key pressed
     void Update()
     {
         if (currentState == GameState.WaitingToStart && Keyboard.current.spaceKey.wasPressedThisFrame)
@@ -29,6 +34,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //set time limit on game over screen to 10 seconds, then return to start screen
     void FixedUpdate()
     {
         if (currentState == GameState.GameOver)
@@ -42,6 +48,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //changes gamestate to playing, sets start screen to inactive, launches the ball
     void StartGame()
     {
         currentState = GameState.Playing;
@@ -49,6 +56,7 @@ public class GameManager : MonoBehaviour
         BallMovement.Instance.LaunchBall();
     }
 
+    //turns off game over screen, on start screen, sets time and scores to zero
     void EndGameOverScreen()
     {
         currentState = GameState.WaitingToStart;
@@ -59,6 +67,7 @@ public class GameManager : MonoBehaviour
         PressSpaceText.SetActive(true);
     }
 
+    //adds point for left player, checks if score over 11, resets and launches ball if not
     public void AddPointLeft()
     {
         leftScore++;
@@ -75,6 +84,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //adds point for right player, checks if score over 11, resets and launches ball if not
     public void AddPointRight()
     {
         rightScore++;
